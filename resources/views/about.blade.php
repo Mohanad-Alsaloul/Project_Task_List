@@ -11,6 +11,7 @@
     <h1>Hello, {{$name}}</h1>
     <form action="about" method="post">
         @csrf
+        
         <input type="text" name="name" id="name"><br><br>
         <select name="department" id="department" >
             @foreach ($departments as $key => $department)
