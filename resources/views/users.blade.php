@@ -9,6 +9,15 @@
     <div class="offset-md-2 col-md-8">
 
         <div class="card">
+  @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
             @if(isset($user))
 
@@ -30,7 +39,7 @@
                         <input type="text"
                                name="name"
                                class="form-control"
-                               value="{{ $user->name }}">
+                               value="{{old('name', $user->name ?? '')  }}">
                     </div>
 
                     <div class="mb-3">
@@ -39,7 +48,7 @@
                         <input type="email"
                                name="email"
                                class="form-control"
-                               value="{{ $user->email }}">
+                               value="{{ old('email', $user->email ?? '') }}">
                     </div>
 
                     <div class="mb-3">
@@ -70,22 +79,21 @@
 
                     @csrf
 
-                    <div class="mb-3">
-                        <label class="form-label">Name</label>
+                  <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text"
+                        name="name"
+                        class="form-control"
+                        value="{{ old('name') }}">
+                </div>
 
-                        <input type="text"
-                               name="name"
-                               class="form-control">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Email</label>
-
-                        <input type="email"
-                               name="email"
-                               class="form-control">
-                    </div>
-
+              <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email"
+                        name="email"
+                        class="form-control"
+                        value="{{ old('email') }}">
+                </div>
                     <div class="mb-3">
                         <label class="form-label">Password</label>
 

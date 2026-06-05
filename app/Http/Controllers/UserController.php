@@ -17,6 +17,12 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
+            $validated = $request->validate([
+        'name' => 'required|min:3|max:255',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|min:6'
+    ]);
+
         User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -28,7 +34,11 @@ class UserController extends Controller
 
     public function delete($id)
     {
-        User::find($id)->delete();
+        $user = User::find($id);
+
+        if ($user) {
+            $user->delete();
+        }
 
         return redirect('/users');
     }
@@ -44,6 +54,10 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
+            $validated = $request->validate([
+        'name' => 'required|min:3',
+        'email' => 'required|email'
+    ]);
         $user = User::find($request->id);
 
         $user->name = $request->name;
